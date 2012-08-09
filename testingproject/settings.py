@@ -1,5 +1,5 @@
 # Django settings for testingproject project.
-
+import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
