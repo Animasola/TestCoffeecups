@@ -1,11 +1,11 @@
 MANAGE=django-admin.py
 
 test:
-	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=kava.settings $(MANAGE) test coffeine
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=TestCoffecups.settings $(MANAGE) test testapp
 
 syncdb:
-	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=kava.settings $(MANAGE) syncdb --noinput
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=TestCoffecups.settings $(MANAGE) syncdb --noinput
 
 run:
-	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=kava.settings $(MANAGE) runserver
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=TestCoffecups.settings $(MANAGE) runserver
 
