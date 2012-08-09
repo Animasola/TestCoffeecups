@@ -1,11 +1,11 @@
 MANAGE=django-admin.py
 
 test:
-	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=TestCoffecups.settings $(MANAGE) test testapp
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=testingproject.settings $(MANAGE) test testapp
 
 syncdb:
-	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=TestCoffecups.settings $(MANAGE) syncdb --noinput
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=testingproject.settings $(MANAGE) syncdb --noinput
 
 run:
-	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=TestCoffecups.settings $(MANAGE) runserver
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=testingproject.settings $(MANAGE) runserver
 
