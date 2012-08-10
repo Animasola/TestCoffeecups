@@ -1,0 +1,1 @@
+[{"pk": 1, "model": "testapp.myinfo", "fields": {"bio": "Let it be empty", "surname": "Gordiychuk", "name": "Andrew", "skype": "goraio1986", "birth_date": "1986-12-20", "other_cont": "gorazio@ukr.net", "jabber": "annima@akhavr.com", "email": "annima.sola@gmail.com"}}]
