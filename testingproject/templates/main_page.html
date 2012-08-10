@@ -2,5 +2,20 @@
 {% block head %}<title>Main page</title>{% endblock %}
 
 {% block body %}
-
+{% for myself in myinfo %}
+<div class="left_side">
+	<p>{{ myself.name }}</p>
+	<p>{{ myself.surname }}</p>
+	<p>{{ myself.birth_date }}</p>
+	<p>{{ myself.bio }}</p>
+</div>
+<div class="right_side">
+	<p>Contacts
+	<p>Email: {{ myself.email }}</p>
+	<p>Jabber: {{ myself.jabber }}</p>
+	<p>Skype: {{ myself.skype }}</p>
+	<p>Other contacts:
+	<p>{{ myself.other_cont }}</p>
+</div>
+{% endfor %}
 {% endblock %}
