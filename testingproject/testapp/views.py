@@ -8,4 +8,4 @@ def main_page_info(request):
 
     myinfo = MyInfo.objects.filter()
     return direct_to_template(request, 'main_page.html',
-                {'myinfo':myinfo})
+                {'myinfo': myinfo})
