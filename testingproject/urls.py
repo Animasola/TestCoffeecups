@@ -1,10 +1,12 @@
 from django.conf.urls.defaults import patterns, include, url
+from testapp.views import main_page_info
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^$', main_page_info, name='home'),
     # Examples:
     # url(r'^$', 'testingproject.views.home', name='home'),
     # url(r'^testingproject/', include('testingproject.foo.urls')),
