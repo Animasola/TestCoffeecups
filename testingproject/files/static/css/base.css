@@ -5,7 +5,6 @@ float:left;
 
 div.left_side{
 float:left;
-clear:both;
 padding-left:50px;
 }
 
@@ -20,6 +19,13 @@ height:150px;
 overflow:auto;
 }
 
-h1{
+div#reqlog{
+width:70%;
+float:left;
 padding-left:50px;
+clear:both;
+}
+
+ul.left_side_ul{
+list-style-type:none;
 }

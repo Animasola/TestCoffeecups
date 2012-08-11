@@ -16,7 +16,6 @@ class MyInfo(models.Model):
         return '%s %s' % (self.name, self.surname)
 
 
-
 class ReqsHistory(models.Model):
     req_url = models.CharField(max_length=255)
     req_type = models.CharField(max_length=10)
