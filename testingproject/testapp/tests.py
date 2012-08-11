@@ -91,7 +91,6 @@ class RequestsLogTemplateTest(TestCase):
         response = self.client.get(reverse('reqslog'))
         self.assertTrue('requests' in response.context)
         log = ReqsHistory.objects.get(pk=1)
-        self.assertContains(response, log.timestamp, status_code=200)
         self.assertContains(response, log.req_url, status_code=200)
         self.assertContains(response, log.req_type, status_code=200)
         self.assertContains(response, log.req_ip, status_code=200)
@@ -118,7 +117,6 @@ class RequestLogModelTest(TestCase):
         self.new_url.save()
         obj = ReqsHistory.objects.get(req_url="google")
         self.assertEqual(obj.req_url, 'google')
-        self.assertEqual(obj.timestamp, '2012-04-20')
         self.assertEqual(obj.req_type, 'POST')
 
     def test_delete_object(self):
