@@ -118,6 +118,7 @@ class RequestLogModelTest(TestCase):
         obj = ReqsHistory.objects.get(req_url="google")
         self.assertEqual(obj.req_url, 'google')
         self.assertEqual(obj.req_type, 'POST')
+        self.assertTrue(obj.timestamp)
 
     def test_delete_object(self):
         self.new_url.save()
