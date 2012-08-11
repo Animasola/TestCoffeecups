@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.test.client import Client
 from django.core.urlresolvers import reverse
 
-from testingproject.testapp.models import MyInfo
+from testingproject.testapp.models import MyInfo, ReqsHistory
 
 
 class MainPageTest(TestCase):
@@ -62,3 +62,67 @@ class MainPageTest(TestCase):
         response = self.client.get(reverse('home'))
         self.assertTrue('myinfo' in response.context)
         self.assertTrue('Petro' in str(response.context['myinfo']))
+
+
+class RequestsLogTemplateTest(TestCase):
+    """Tests for middleware (ticket_3)"""
+
+    def setUp(self):
+        self.client = Client()
+
+    def tearDown(self):
+        self.client = None
+
+    def test_template(self):
+        response = self.client.get(reverse('reqslog'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reqs_log.html')
+
+    def test_reqlog_page(self):
+        response = self.client.get(reverse('reqslog'))
+        self.assertContains(response, 'from', count=1, status_code=200)
+        for n in xrange(15):
+            response = self.client.get(reverse('reqslog'))
+        self.assertContains(response, 'request to', count=10, status_code=200)
+        self.assertEqual(ReqsHistory.objects.filter().count(),
+                    16)
+
+    def test_templ_context(self):
+        response = self.client.get(reverse('reqslog'))
+        self.assertTrue('requests' in response.context)
+        log = ReqsHistory.objects.get(pk=1)
+        self.assertContains(response, log.timestamp, status_code=200)
+        self.assertContains(response, log.req_url, status_code=200)
+        self.assertContains(response, log.req_type, status_code=200)
+        self.assertContains(response, log.req_ip, status_code=200)
+
+
+class RequestLogModelTest(TestCase):
+
+    def setUp(self):
+        self.new_url = ReqsHistory(
+            timestamp='2012-04-20',
+            req_url='google',
+            req_type="POST",
+            req_ip="10.10.157.17",
+            )
+
+    def tearDown(self):
+        self.new_url = None
+
+    def test_object_as_string(self):
+        self.new_url.save()
+        self.assertEqual(str(self.new_url), 'google')
+
+    def test_save_object(self):
+        self.new_url.save()
+        obj = ReqsHistory.objects.get(req_url="google")
+        self.assertEqual(obj.req_url, 'google')
+        self.assertEqual(obj.timestamp, '2012-04-20')
+        self.assertEqual(obj.req_type, 'POST')
+
+    def test_delete_object(self):
+        self.new_url.save()
+        ReqsHistory.objects.filter(req_url="google")
+        self.assertNotEqual(ReqsHistory.objects.filter(req_url="google"),
+                     'google')
