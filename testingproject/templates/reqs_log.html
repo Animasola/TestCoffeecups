@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block head %}<title>First ten requests</title>{% endblock %}
+
+{% block body %}
+<h2>First ten requests</h2>
+<ul class="left_side_ul">
+	{% for request in requests %}
+		<li><b>{{ request.req_type }}</b> request to <a href="{{ request.req_url }}">{{ request.req_url }}</a> from <b>{{ request.req_ip }}</b> at {{ request.timestamp }}</li>
+	{% endfor %}
+</ul>
+
+{% endblock %}

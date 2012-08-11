@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.conf import settings
-from testapp.views import main_page_info
+from testapp.views import main_page_info, requests_log
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -8,6 +8,7 @@ from testapp.views import main_page_info
 
 urlpatterns = patterns('',
     url(r'^$', main_page_info, name='home'),
+    url(r'^requests/', requests_log, name='reqslog'),
     # Examples:
     # url(r'^$', 'testingproject.views.home', name='home'),
     # url(r'^testingproject/', include('testingproject.foo.urls')),
