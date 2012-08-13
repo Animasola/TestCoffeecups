@@ -3,4 +3,4 @@ from django.conf import settings as dset
 
 
 def django_settings(request):
-    return {'django_sett': dset}
+    return {'django_settings': dset}

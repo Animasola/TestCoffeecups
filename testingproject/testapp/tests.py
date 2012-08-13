@@ -125,3 +125,16 @@ class RequestLogModelTest(TestCase):
         ReqsHistory.objects.filter(req_url="google")
         self.assertNotEqual(ReqsHistory.objects.filter(req_url="google"),
                      'google')
+
+
+class TemplateContextProcTest(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+
+    def tearDown(self):
+        self.client = None
+
+    def test_context(self):
+        response = self.client.get(reverse('home'))
+        self.assertTrue('django_settings' in response.context)
