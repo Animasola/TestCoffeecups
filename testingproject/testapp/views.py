@@ -2,6 +2,7 @@
 from django.views.generic.simple import direct_to_template
 
 from testingproject.testapp.models import MyInfo, ReqsHistory
+from forms import MyInfoForm
 
 
 def main_page_info(request):

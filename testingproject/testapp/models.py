@@ -11,6 +11,7 @@ class MyInfo(models.Model):
     jabber = models.CharField(max_length=50, verbose_name='Jabber')
     skype = models.CharField(max_length=50, verbose_name='Skype')
     other_cont = models.TextField()
+    my_photo = models.ImageField(upload_to='img/', blank=True, null=True)
 
     def __unicode__(self):
         return '%s %s' % (self.name, self.surname)
