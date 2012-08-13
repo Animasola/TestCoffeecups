@@ -3,6 +3,13 @@
 {% block body %}
 <form id="editmyinfo" enctype="multipart/form-data" action="" method="POST">
 	{% csrf_token %}
-	<p id="form_butts"><button id="savebutton" type="submit">Submit</button> <a href="{% url main %}">cancel</a></p>
+	{% for field in form %}
+		<div id="id{{ field.name }}">
+			{{ field.label_tag }} {{ field }}
+			{{ field.errors }}
+		</div>
+	{% endfor %}
+
+	<p id="form_butts"><button id="savebutton" type="submit">Submit</button> <a href="{% url home %}">cancel</a></p>
 </form>
 {% endblock %}
