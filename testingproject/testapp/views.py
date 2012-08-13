@@ -17,3 +17,18 @@ def requests_log(request):
     return direct_to_template(request, "reqs_log.html",
                 {'requests': first_ten_requests}
             )
+
+
+def edit_my_info(request):
+    try:
+        my_info = MyInfo.objects.get(pk=1)
+    except:
+        my_info = None
+    if request.method == 'POST':
+        form = MyInfoForm(request.POST, request.FILES, instance=my_info)
+        if form.is_valid():
+            form.save()
+    else:
+        form = MyInfoForm(instance=my_info)
+    return direct_to_template(request, 'edit_my_info.html',
+                {'form': form})

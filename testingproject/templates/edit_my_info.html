@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block head %}<title>Edit info</title>{% endblock %}
+{% block body %}
+<form id="editmyinfo" enctype="multipart/form-data" action="" method="POST">
+	{% csrf_token %}
+	<p id="form_butts"><button id="savebutton" type="submit">Submit</button> <a href="{% url main %}">cancel</a></p>
+</form>
+{% endblock %}
