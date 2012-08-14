@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.views.generic.simple import direct_to_template
+from django.contrib.auth.decorators import login_required
 
 from testingproject.testapp.models import MyInfo, ReqsHistory
 from forms import MyInfoForm
@@ -20,6 +21,7 @@ def requests_log(request):
             )
 
 
+@login_required
 def edit_my_info(request):
     try:
         my_info = MyInfo.objects.get(pk=1)

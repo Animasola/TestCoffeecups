@@ -7,6 +7,10 @@ from models import MyInfo
 class MyInfoForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(MyInfoForm, self).__init__(*args, **kwargs)
+        self.fields['my_photo'].widget.attrs["onchange"] = "upload_img(this);"
+
+    class Media:
+        js = ("/static/js/jquery.js",)
 
     class Meta:
         model = MyInfo
