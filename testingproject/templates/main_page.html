@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block head %}<title>Main page</title>{% endblock %}
-
 {% block body %}
 {% for myself in myinfo %}
 <div class="my_info">
@@ -8,8 +7,8 @@
 		<p>{{ myself.name }}</p>
 		<p>{{ myself.surname }}</p>
 		<p>{{ myself.birth_date }}</p>
-        <p>Bio:
-		<p><div class="multiline">{{ myself.bio }}</div></p>
+		<p>Photo:</p>
+		<p><img id="my_photo_prev" src="{{ MEDIA_URL }}{{ myself.my_photo }}"></p>
 	</div>
 	<div class="right_side">
 		<p>Contacts
@@ -18,11 +17,13 @@
 		<p>Skype: {{ myself.skype }}</p>
 		<p>Other contacts:
 		<p><div class="multiline">{{ myself.other_cont }}</div></p>
+		<p>Bio:
+		<p><div class="multiline">{{ myself.bio }}</div></p>
 	</div>
-	<div id="reqlog">		
-		<hr/>
-		<a href="{% url reqslog %}">requests</a>	
-	</div>
+<div class="clr"></div>
+</div>
+<div class="login">
+	<a href="{% url editinfo %}">Login</a>
 </div>
 {% endfor %}
 {% endblock %}
