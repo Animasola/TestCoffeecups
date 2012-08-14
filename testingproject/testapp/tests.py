@@ -1,8 +1,13 @@
 from django.test import TestCase
 from django.test.client import Client
 from django.core.urlresolvers import reverse
+from django.core.files.uploadedfile import SimpleUploadedFile
+from StringIO import StringIO
+from datetime import datetime
+from PIL import Image
 
 from testingproject.testapp.models import MyInfo, ReqsHistory
+from testingproject.testapp.forms import MyInfoForm
 
 
 class MainPageTest(TestCase):
@@ -138,3 +143,48 @@ class TemplateContextProcTest(TestCase):
     def test_context(self):
         response = self.client.get(reverse('home'))
         self.assertTrue('django_settings' in response.context)
+
+
+class FormValidationTest(TestCase):
+
+    def setUp(self):
+        self.file_obj = StringIO()
+        self.image = Image.new("RGBA", size=(50, 50), color=(256, 0, 0))
+        self.post_dict = {'name': "Petro",
+                'surname': "Petrenko",
+                'birth_date': '1986-12-20',
+                'bio': 'Theres nothing to tell',
+                'email': 'petro@mail.ru',
+                'jabber': 'annima@akhavr.com',
+                'skype': 'petro1986',
+                'other_cont': 'petro@ukr.net'}
+
+    def tearDown(self):
+        self.file_obj = None
+        self.image = None
+        self.post_dict = None
+
+    def test_forma(self):
+        self.image.save(self.file_obj, 'png')
+        self.file_obj.name = 'test_%s.png' % datetime.now().microsecond
+        self.file_obj.seek(0)
+        file_dict = {
+             'my_photo': SimpleUploadedFile(self.file_obj.name,
+                                                self.file_obj.read())}
+        form = MyInfoForm(self.post_dict, file_dict)
+        self.assertTrue(form.is_valid())
+        form.save()
+        response = self.client.get(reverse('home'))
+        self.assertContains(response, 'Assignment', status_code=200)
+        self.assertContains(response, self.post_dict['name'], status_code=200)
+        self.assertContains(response, self.post_dict['surname'],
+                    status_code=200)
+        self.assertContains(response, self.post_dict['bio'], status_code=200)
+        self.assertContains(response, self.post_dict['email'],
+                    status_code=200)
+        self.assertContains(response, self.post_dict['jabber'],
+                    status_code=200)
+        self.assertContains(response, self.post_dict['skype'], status_code=200)
+        self.assertContains(response, self.post_dict['other_cont'],
+                    status_code=200)
+        self.assertContains(response, self.file_obj.name, status_code=200)
