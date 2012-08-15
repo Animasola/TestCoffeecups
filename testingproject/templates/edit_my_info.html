@@ -17,7 +17,46 @@
 	}
 </script>
 
-<form id="editmyinfo" enctype="multipart/form-data" action="" method="POST">
+
+<script type="text/javascript">
+function display_form_errors(errors, $form) {
+	for (var error in errors) {
+		$form.find('textarea[name=' + error + '], input[name=' + error + ']').after('<div class="error" style="color:#ff0000">' + errors[error] + '</div>');
+	}
+}
+
+$(document).ready(function() {
+	var options = {
+		url:		'{% url editinfo %}',
+		type:		'post',
+		dataType:	'json',
+		success:	responseShow
+	};
+	$('#editmyinfo').submit(function() {
+		$(this).ajaxSubmit(options);
+		var $form_elems = $(this).find('input, textarea, button');
+		$form_elems.prop("disabled",true);
+		$('#error_message').text("Loading data, it may take a few moments...").fadeIn("slow");
+		return false;
+	});
+});
+function responseShow(data, responseText, statusText, xhr, $form) {
+	$('#editmyinfo').find('input, textarea, button').prop("disabled", false);
+	$('#editmyinfo').find('.error').remove();
+	$('#error_message').fadeOut("slow");
+	if (data['result'] == 'success') {
+		e_msg = data['message'];
+	}
+	else if (data['result'] == 'error') {
+		e_msg = "Your form contains errors, please check out!";
+		display_form_errors(data['response'], $('#editmyinfo'));
+	}
+	$('#error_message').text( e_msg ).fadeIn("slow");
+}
+</script>
+
+
+<form id="editmyinfo" enctype="multipart/form-data" action="{% url editinfo %}" method="POST">
 	{% csrf_token %}
 	<div class="form_left">
 		<div class="fieldWrapper" id="idname">
@@ -63,6 +102,7 @@
 		</div>
 	</div>
 	<div class="clr"></div>
+	<div id="error_message">Fill the form and press Submit button</div>
 	<p id="form_butts"><button id="savebutton" type="submit">Submit</button> <a href="{% url home %}">cancel</a></p>
 </form>
 {% endblock %}

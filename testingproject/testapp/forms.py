@@ -10,7 +10,8 @@ class MyInfoForm(ModelForm):
         self.fields['my_photo'].widget.attrs["onchange"] = "upload_img(this);"
 
     class Media:
-        js = ("/static/js/jquery.js",)
+        js = ("/static/js/jquery.js",
+                "/static/js/jquery.form_3.09.js",)
 
     class Meta:
         model = MyInfo
