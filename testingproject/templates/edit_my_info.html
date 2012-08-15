@@ -55,6 +55,11 @@ function responseShow(data, responseText, statusText, xhr, $form) {
 }
 </script>
 
+<script type="text/javascript">
+    $(function() {
+        $('#id_birth_date').datepicker();
+    });
+</script>
 
 <form id="editmyinfo" enctype="multipart/form-data" action="{% url editinfo %}" method="POST">
 	{% csrf_token %}

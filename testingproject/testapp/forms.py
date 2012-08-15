@@ -11,7 +11,11 @@ class MyInfoForm(ModelForm):
 
     class Media:
         js = ("/static/js/jquery.js",
-                "/static/js/jquery.form_3.09.js",)
+                "/static/js/jquery.form_3.09.js",
+                "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js",)
+        css = {
+            'all':("http://jquery-ui.googlecode.com/svn/tags/latest/themes/base/jquery-ui.css",)
+            }
 
     class Meta:
         model = MyInfo
