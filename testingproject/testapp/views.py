@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.views.generic.simple import direct_to_template
 from django.contrib.auth.decorators import login_required
+from django.utils import simplejson
+from django.http import HttpResponse
 
 from testingproject.testapp.models import MyInfo, ReqsHistory
 from forms import MyInfoForm
@@ -28,9 +30,25 @@ def edit_my_info(request):
     except:
         my_info = None
     if request.method == 'POST':
-        form = MyInfoForm(request.POST, request.FILES, instance=my_info)
-        if form.is_valid():
-            form.save()
+        form = MyInfoForm(request.POST, request.FILES, instance=my_info,
+                    auto_id=False)
+        response_dict = {}
+        if request.is_ajax():
+            if form.is_valid():
+                form.save()
+                response_dict['message'] = 'Changes have been saved'
+                response_dict['result'] = 'success'
+            else:
+                response_dict['result'] = 'error'
+                response = {}
+                for error in form.errors:
+                    response[error] = form.errors[error][0]
+                response_dict['response'] = response
+            json = simplejson.dumps(response_dict, ensure_ascii=False)
+            return HttpResponse(json, mimetype='application/json')
+        else:
+            if form.is_valid():
+                form.save()
     else:
         form = MyInfoForm(instance=my_info)
     return direct_to_template(request, 'edit_my_info.html',
