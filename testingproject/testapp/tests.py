@@ -48,11 +48,13 @@ class MainPageTest(TestCase):
             'Petro')
 
     def test_template(self):
+        user = self.client.login(username='animasola', password='hal498p')
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'main_page.html')
 
     def test_page_contens(self):
+        user = self.client.login(username='animasola', password='hal498p')
         response = self.client.get(reverse('home'))
         self.assertContains(response, 'Assignment', status_code=200)
         self.assertContains(response, self.petya.name, status_code=200)
@@ -64,6 +66,7 @@ class MainPageTest(TestCase):
         self.assertContains(response, self.petya.other_cont, status_code=200)
 
     def test_template_context(self):
+        user = self.client.login(username='animasola', password='hal498p')
         response = self.client.get(reverse('home'))
         self.assertTrue('myinfo' in response.context)
         self.assertTrue('Petro' in str(response.context['myinfo']))
@@ -141,6 +144,7 @@ class TemplateContextProcTest(TestCase):
         self.client = None
 
     def test_context(self):
+        user = self.client.login(username='animasola', password='hal498p')
         response = self.client.get(reverse('home'))
         self.assertTrue('django_settings' in response.context)
 
@@ -174,6 +178,7 @@ class FormValidationTest(TestCase):
         form = MyInfoForm(self.post_dict, file_dict)
         self.assertTrue(form.is_valid())
         form.save()
+        user = self.client.login(username='animasola', password='hal498p')
         response = self.client.get(reverse('home'))
         self.assertContains(response, 'Assignment', status_code=200)
         self.assertContains(response, self.post_dict['name'], status_code=200)

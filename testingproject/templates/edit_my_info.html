@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% block head %}<title>Edit info</title>{% endblock %}
+{% block head %}<title>Edit info</title>
+{{ form.media }}{% endblock %}
 {% block body %}
 
-{{ form.media }}
 <script type="text/javascript">
 	function upload_img(input) {
 		if (input.files && input.files[0]) {
