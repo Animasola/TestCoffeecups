@@ -8,11 +8,12 @@ from testingproject.testapp.models import MyInfo, ReqsHistory
 from forms import MyInfoForm
 
 
+@login_required
 def main_page_info(request):
-
     myinfo = MyInfo.objects.filter()
+    resp_dict = {'myinfo': myinfo, 'user': request.user}
     return direct_to_template(request, 'main_page.html',
-                {'myinfo': myinfo})
+                resp_dict)
 
 
 def requests_log(request):
