@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
+from widgets import DatePickerWidget
 from models import MyInfo
 
 
@@ -8,14 +9,13 @@ class MyInfoForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(MyInfoForm, self).__init__(*args, **kwargs)
         self.fields['my_photo'].widget.attrs["onchange"] = "upload_img(this);"
+        self.fields['birth_date'].widget = DatePickerWidget(
+            params="dateFormat: 'yy-mm-dd', changeYear: true,"
+            " defaultDate: '-16y',yearRange: 'c-40:c+16'",
+            attrs={'class': 'datepicker', })
 
     class Media:
-        js = ("/static/js/jquery.js",
-                "/static/js/jquery.form_3.09.js",
-                "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js",)
-        css = {
-            'all':("http://jquery-ui.googlecode.com/svn/tags/latest/themes/base/jquery-ui.css",)
-            }
+        js = ("/static/js/jquery.form_3.09.js",)
 
     class Meta:
         model = MyInfo
