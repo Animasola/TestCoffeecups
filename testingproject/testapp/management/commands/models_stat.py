@@ -10,5 +10,5 @@ class Command( NoArgsCommand ):
           lines = []
           for model in get_models():
                lines.append("[%s]" % model.__name__ + " - %s objects" % model._default_manager.count() or "")
-          self.stderr.write("error:\n %s" % "\n".join( lines ) + "\n")
+          self.stderr.write("error:\n%s" % "\n".join( lines ) + "\n")
           return "\n".join( lines )
