@@ -1,5 +1,7 @@
 from django.test import TestCase
 from django.test.client import Client
+from django.template import Template
+from django.template import Context
 from django.core.urlresolvers import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 from StringIO import StringIO
@@ -8,6 +10,17 @@ from PIL import Image
 
 from testingproject.testapp.models import MyInfo, ReqsHistory
 from testingproject.testapp.forms import MyInfoForm
+
+def create_myinfo_exemplar():
+     obj = MyInfo.objects.create(name="Petro",
+                                 surname="Petrenko",
+                                 birth_date="1986-10-10",
+                                 bio="Theres nothing to tell",
+                                 email="petro@gmail.com",
+                                 jabber="petro@akhavr.com",
+                                 skype="petro1986",
+                                 other_cont="petro@mail.ru")
+     obj.save()
 
 
 class MainPageTest(TestCase):
@@ -193,3 +206,19 @@ class FormValidationTest(TestCase):
         self.assertContains(response, self.post_dict['other_cont'],
                     status_code=200)
         self.assertContains(response, self.file_obj.name, status_code=200)
+
+
+class TemplateTagTest(TestCase):
+
+     def setUp(self):
+          create_myinfo_exemplar()
+          self.petya = MyInfo.objects.get(name='Petro')
+          self.client = Client()
+
+     def  test_tag(self):
+          t = Template('{% load admin_edit_tag %}{% admin_url obj %}')
+          c = Context({"obj": self.petya})
+          url = u'/admin/testapp/myinfo/1/'
+          self.failUnlessEqual(url, t.render(c))
+          response = self.client.get(t.render(c))
+          self.assertEqual(response.status_code, 200)
