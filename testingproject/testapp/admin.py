@@ -1,5 +1,5 @@
 from django.contrib import admin
-from testapp.models import MyInfo
+from testingproject.testapp.models import MyInfo
 
 
 class MyInfoAdmin(admin.ModelAdmin):
