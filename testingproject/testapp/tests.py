@@ -4,6 +4,7 @@ from django.template import Template
 from django.template import Context
 from django.core.urlresolvers import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.management import call_command
 from StringIO import StringIO
 from datetime import datetime
 from PIL import Image
@@ -222,3 +223,9 @@ class TemplateTagTest(TestCase):
           self.failUnlessEqual(url, t.render(c))
           response = self.client.get(t.render(c))
           self.assertEqual(response.status_code, 200)
+
+
+class DjangoCommandsTesting(TestCase):
+
+    def test_command(self):
+        call_command('models_stat')

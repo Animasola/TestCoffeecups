@@ -9,6 +9,6 @@ class Command( NoArgsCommand ):
           from django.db.models import get_app, get_models
           lines = []
           for model in get_models():
-               lines.append("[%s]" % model.__name__ + " - %s objects" % model._default_manager.count() or "")
-          self.stderr.write("error:\n%s" % "\n".join( lines ) + "\n")
+               lines.append("error: [%s]" % model.__name__ + " - %s objects" % model._default_manager.count() or "")
+          self.stderr.write("%s" % "\n".join( lines ) + "\n")
           return "\n".join( lines )
