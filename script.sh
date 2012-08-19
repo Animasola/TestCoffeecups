@@ -1,3 +1,5 @@
 #!/bin/bash
 
-PYTHONPATH='pwd'DJANGO_SETTINGS_MODULE=testingproject.settings django-admin.py models_stat 2>> ./$(date +%Y%m%d).dat;
+##export DJANGO_SETTINGS_MODULE=testingproject.settings
+##export PYTHONPATH=$(pwd)
+cd ./testingproject; python manage.py models_stat 2>> ../$(date +%Y%m%d).dat;
