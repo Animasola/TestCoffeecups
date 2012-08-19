@@ -8,4 +8,3 @@ syncdb:
 
 run:
 	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=testingproject.settings $(MANAGE) runserver
-
