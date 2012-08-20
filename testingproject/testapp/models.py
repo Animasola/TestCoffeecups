@@ -25,3 +25,14 @@ class ReqsHistory(models.Model):
 
     def __unicode__(self):
         return self.req_url
+
+
+class ModelLog(models.Model):
+    model = models.CharField(max_length=30)
+    action = models.CharField(max_length=15)
+    id_zap = models.IntegerField()
+    change_timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+
+    def __unicode__(self):
+        return "%s %s %s %s" % (self.model, self.id_zap,
+                                self.action, self.change_timestamp)
