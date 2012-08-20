@@ -12,7 +12,7 @@ def ModelChangeLog(sender, instance, signal, *args, **kwargs):
     else:
         action_ = "Deleted"
     try:
-        from models import ModelLog
+        from testapp.models import ModelLog
         log = ModelLog(model=mdl,
                        id_zap=id_,
                        action=action_,)

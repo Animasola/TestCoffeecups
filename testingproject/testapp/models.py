@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models import get_models
+from django.db.models.signals import post_save, post_delete
+from signals import ModelChangeLog
 
 
 class MyInfo(models.Model):
@@ -36,3 +39,9 @@ class ModelLog(models.Model):
     def __unicode__(self):
         return "%s %s %s %s" % (self.model, self.id_zap,
                                 self.action, self.change_timestamp)
+
+
+for idx, model in enumerate(get_models()):
+    if model.__name__ != "ModelLog":
+        post_save.connect(ModelChangeLog, sender=model, dispatch_uid="%sca%s" % (model.__name__, idx))
+        post_delete.connect(ModelChangeLog, sender=model, dispatch_uid="%sd%s" % (model.__name__, idx))

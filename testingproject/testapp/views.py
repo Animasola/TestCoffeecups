@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import simplejson
 from django.http import HttpResponse
 
-from testingproject.testapp.models import MyInfo, ReqsHistory
+from testapp.models import MyInfo, ReqsHistory
 from forms import MyInfoForm
 
 
