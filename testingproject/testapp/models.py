@@ -25,6 +25,7 @@ class ReqsHistory(models.Model):
     req_type = models.CharField(max_length=10)
     req_ip = models.CharField(max_length=20)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+    req_priority = models.PositiveSmallIntegerField(default=0)
 
     def __unicode__(self):
         return self.req_url
