@@ -259,28 +259,30 @@ class DjangoCommandsTesting(TestCase):
 
 
 class TestingSignals(TestCase):
+    def setUp(self):
+        self.modlog = ModelLog.objects.filter().delete()
+        self.my_info = any_model(MyInfo, my_photo='')
 
-     def setUp(self):
-          self.modlog = ModelLog.objects.filter().delete()
-          self.my_info = any_model(MyInfo, my_photo='').save()
+    def test_creation(self):
+        log_created = ModelLog.objects.get(pk=1)
+        self.assertEquals(log_created.model, "MyInfo")
+        self.assertEquals(log_created.action, "Created")
+        self.assertEquals(log_created.target_instance,
+                          "%s %s" % (self.my_info.name, self.my_info.surname))
 
-     def test_creation(self):
-          log_created = ModelLog.objects.get(pk=1)
-          self.assertEquals(log_created.model, "MyInfo")
-          self.assertEquals(log_created.action, "Created")
-          self.assertEquals(log_created.id_zap, self.my_info.id)
-
-
-     def test_alteration_deletion(self):
-          self.my_info.name = "Andy"
-          self.my_info.save()
-          log_altered = ModelLog.objects.get(pk=2)
-          self.assertEquals(log_altered.model, "MyInfo")
-          self.assertEquals(log_altered.action, "Altered")
-          self.assertEquals(log_altered.id_zap, self.my_info.id)
-          self.my_info.delete()
-          log_deleted = ModelLog.objects.get(pk=3)
-          self.assertEquals(log_deleted.model, "MyInfo")
-          self.assertEquals(log_deleted.action, "Deleted")
-          self.assertEquals(log_deleted.id_zap, 1)
-          self.assertTrue(ModelLog.objects.filter().count() == 3)
+    def test_alteration_deletion(self):
+        me = MyInfo.objects.get(pk=1)
+        me.name = "Andy"
+        me.save()
+        log_altered = ModelLog.objects.get(pk=2)
+        self.assertEquals(log_altered.model, "MyInfo")
+        self.assertEquals(log_altered.action, "Altered")
+        self.assertEquals(log_altered.target_instance,
+                          "%s %s" % (me.name, me.surname))
+        me.delete()
+        log_deleted = ModelLog.objects.get(pk=3)
+        self.assertEquals(log_deleted.model, "MyInfo")
+        self.assertEquals(log_deleted.action, "Deleted")
+        self.assertEquals(log_deleted.target_instance,
+                          "%s %s" % (me.name, me.surname))
+        self.assertTrue(ModelLog.objects.filter().count() == 3)

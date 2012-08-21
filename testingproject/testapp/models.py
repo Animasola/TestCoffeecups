@@ -1,7 +1,7 @@
 from django.db import models
-from django.db.models import get_models
 from django.db.models.signals import post_save, post_delete
 from signals import ModelChangeLog
+from datetime import time
 
 
 class MyInfo(models.Model):
@@ -33,7 +33,7 @@ class ReqsHistory(models.Model):
 class ModelLog(models.Model):
     model = models.CharField(max_length=30)
     action = models.CharField(max_length=15)
-    id_zap = models.IntegerField()
+    target_instance = models.CharField(max_length=255, blank=True, null=True)
     change_timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     def __unicode__(self):
@@ -41,7 +41,7 @@ class ModelLog(models.Model):
                                 self.action, self.change_timestamp)
 
 
-for idx, model in enumerate(get_models()):
-    if model.__name__ != "ModelLog":
-        post_save.connect(ModelChangeLog, sender=model, dispatch_uid="%sca%s" % (model.__name__, idx))
-        post_delete.connect(ModelChangeLog, sender=model, dispatch_uid="%sd%s" % (model.__name__, idx))
+post_save.connect(ModelChangeLog,
+                  dispatch_uid="%s%s" % (time.second, time.microsecond))
+post_delete.connect(ModelChangeLog,
+                    dispatch_uid="%s%s" % (time.second, time.microsecond))
