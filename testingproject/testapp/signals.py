@@ -26,7 +26,7 @@ def ModelChangeLog(sender, instance, signal, *args, **kwargs):
             action_ = "Altered"
     else:
         action_ = "Deleted"
-    from testapp.models import ModelLog
+    from testingproject.testapp.models import ModelLog
     log = ModelLog(model=mdl,
                     target_instance=tgt_instance,
                     action=action_,)
