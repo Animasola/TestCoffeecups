@@ -3,6 +3,10 @@
 
 {% block body %}
 <h2>First 10 requests</h2>
+<div class="log_choise">
+	<a href="{% url reqslog %}?pr=2">Show post requests</a>
+	<a href="{% url reqslog %}?pr=1">Show file access requests</a>
+</div>
 <ul class="left_side_ul">
 	{% for request in requests %}
 		<li><b>{{ request.req_type }}</b> request to <a href="{{ request.req_url }}">{{ request.req_url }}</a> from <b>{{ request.req_ip }}</b> at {{ request.timestamp }}</li>
