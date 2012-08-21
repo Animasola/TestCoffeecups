@@ -8,7 +8,7 @@ class RequestLogger(object):
             requested_url = request.build_absolute_uri(request.path)
             if request.method == 'POST':
                 priority = 2
-            elif request.method == 'GET' and ('/static/' or '/media/' in requested_url):
+            elif request.method == 'GET' and ('/static/' in requested_url or '/media/' in requested_url):
                 priority = 1
             else:
                 priority = 0

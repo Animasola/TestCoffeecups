@@ -17,8 +17,16 @@ def main_page_info(request):
 
 
 def requests_log(request):
-    first_ten_requests =\
-            ReqsHistory.objects.filter().order_by('timestamp')
+    try:
+        prior = request.GET['pr'].encode('utf-8')
+    except:
+        prior = None
+    if prior:
+        first_ten_requests =\
+                ReqsHistory.objects.filter(req_priority=int(prior)).order_by('timestamp')
+    else:
+        first_ten_requests =\
+                ReqsHistory.objects.filter().order_by('timestamp')[: 10]
     return direct_to_template(request, "reqs_log.html",
                 {'requests': first_ten_requests}
             )
