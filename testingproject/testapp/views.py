@@ -18,7 +18,7 @@ def main_page_info(request):
 
 def requests_log(request):
     first_ten_requests =\
-            ReqsHistory.objects.filter().order_by('timestamp')[: 10]
+            ReqsHistory.objects.filter().order_by('timestamp')
     return direct_to_template(request, "reqs_log.html",
                 {'requests': first_ten_requests}
             )
