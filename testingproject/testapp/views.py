@@ -8,7 +8,6 @@ from testingproject.testapp.models import MyInfo, ReqsHistory
 from forms import MyInfoForm
 
 
-@login_required
 def main_page_info(request):
     myinfo = MyInfo.objects.filter()
     resp_dict = {'myinfo': myinfo, 'user': request.user}
@@ -22,7 +21,7 @@ def requests_log(request):
     except:
         prior = None
     if prior:
-        first_ten_requests =\
+        first_ten_requests = \
                 ReqsHistory.objects.filter(req_priority=\
                         int(prior)).order_by('timestamp')
     else:

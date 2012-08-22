@@ -66,13 +66,11 @@ class MainPageTest(TestCase):
             'Petro')
 
     def test_template(self):
-        user = self.client.login(username='animasola', password='hal498p')
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'main_page.html')
 
     def test_page_contens(self):
-        user = self.client.login(username='animasola', password='hal498p')
         response = self.client.get(reverse('home'))
         self.assertContains(response, 'Assignment', status_code=200)
         self.assertContains(response, self.petya.name, status_code=200)
@@ -84,7 +82,6 @@ class MainPageTest(TestCase):
         self.assertContains(response, self.petya.other_cont, status_code=200)
 
     def test_template_context(self):
-        user = self.client.login(username='animasola', password='hal498p')
         response = self.client.get(reverse('home'))
         self.assertTrue('myinfo' in response.context)
         self.assertTrue('Petro' in str(response.context['myinfo']))
@@ -223,7 +220,7 @@ class TemplateTagTest(TestCase):
     def test_tag(self):
         t = Template('{% load admin_edit_tag %}{% admin_url obj %}')
         c = Context({"obj": self.petya})
-        url = u'/admin/testapp/myinfo/1/'
+        url = u'/admin/testapp/myinfo/2/'
         self.failUnlessEqual(url, t.render(c))
         response = self.client.get(t.render(c))
         self.assertEqual(response.status_code, 200)
