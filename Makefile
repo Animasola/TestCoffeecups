@@ -8,3 +8,6 @@ syncdb:
 
 run:
 	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=testingproject.settings $(MANAGE) runserver
+
+migrate:
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=testingproject.settings $(MANAGE) migrate testapp
