@@ -38,7 +38,7 @@ class ModelLog(models.Model):
     change_timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     def __unicode__(self):
-        return "%s %s %s %s" % (self.model, self.id_zap,
+        return "%s %s %s %s" % (self.model, self.target_instance,
                                 self.action, self.change_timestamp)
 
 
