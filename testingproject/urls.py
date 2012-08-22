@@ -10,7 +10,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^$', main_page_info, name='home'),
     url(r'^requests/$', requests_log, name='reqslog'),
-    url(r'^editinfo/', edit_my_info, name='editinfo'),
+    url(r'^editinfo/$', edit_my_info, name='editinfo'),
     url(r'^accounts/login/$', login, name='login'),
     url(r'^accounts/logout/$', logout, name='logout'),
     url(r'^admin/', include(admin.site.urls)),
