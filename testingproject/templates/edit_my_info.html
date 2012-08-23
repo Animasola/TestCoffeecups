@@ -4,52 +4,52 @@
 {% block body %}
 
 <form id="editmyinfo" enctype="multipart/form-data" action="{% url editinfo %}" method="POST">
-	{% csrf_token %}
-	<div class="form_left">
-		<div class="fieldWrapper" id="idname">
-			{{ form.name.label_tag }} {{ form.name }}
-			{{ form.name.errors }}
-		</div>
-		<div class="fieldWrapper" id="idsurname">
-			{{ form.surname.label_tag }} {{ form.surname }}
-			{{ form.surname.errors }}
-		</div>
-		<div class="fieldWrapper" id="idbirth_date">
-			{{ form.birth_date.label_tag }} {{ form.birth_date }}
-			{{ form.birth_date.errors }}
-		</div>
-		<div class="fieldWrapper" id="idmy_photo">
-			{{ form.my_photo.label_tag }} 
-			{{ form.my_photo }}
-			{{ form.my_photo.errors }}
-		</div>
-		<div class="clr"></div>
-		<div id="img_container"><img id="img_prev" src="{{MEDIA_URL}}{{ myphoto }}" alt="Image preview"  /></div>		
-	</div>
-	<div class="form_right">
-		<div class="fieldwrapper" id="idemail">
-			{{ form.email.label_tag }} {{ form.email }}
-			{{ form.email.errors }}
-		</div>
-		<div class="fieldWrapper" id="idjabber">
-			{{ form.jabber.label_tag }} {{ form.jabber }}
-			{{ form.jabber.errors }}
-		</div>
-		<div class="fieldWrapper" id="idskype">
-			{{ form.skype.label_tag }} {{ form.skype }}
-			{{ form.skype.errors }}
-		</div>
-		<div class="fieldWrapper" id="idother_cont">
-			{{ form.other_cont.label_tag }} {{ form.other_cont }}
-			{{ form.other_cont.errors }}
-		</div>
-		<div class="fieldWrappe" id="idbio">
-			{{ form.bio.label_tag }} {{ form.bio }}
-			{{ form.bio.errors }}
-		</div>
-	</div>
-	<div class="clr"></div>
-	<div id="error_message">Fill the form and press Submit button</div>
-	<p id="form_butts"><button id="savebutton" type="submit">Submit</button> <a href="{% url home %}">cancel</a></p>
+  {% csrf_token %}
+  <div class="form_left">
+    <div class="fieldWrapper" id="idname">
+      {{ form.name.label_tag }} {{ form.name }}
+      {{ form.name.errors }}
+    </div>
+    <div class="fieldWrapper" id="idsurname">
+      {{ form.surname.label_tag }} {{ form.surname }}
+      {{ form.surname.errors }}
+    </div>
+    <div class="fieldWrapper" id="idbirth_date">
+      {{ form.birth_date.label_tag }} {{ form.birth_date }}
+      {{ form.birth_date.errors }}
+    </div>
+    <div class="fieldWrapper" id="idmy_photo">
+      {{ form.my_photo.label_tag }} 
+      {{ form.my_photo }}
+      {{ form.my_photo.errors }}
+    </div>
+    <div class="clr"></div>
+    <div id="img_container"><img id="img_prev" src="{{MEDIA_URL}}{{ myphoto }}" alt="Image preview"  /></div>		
+  </div>
+  <div class="form_right">
+    <div class="fieldwrapper" id="idemail">
+      {{ form.email.label_tag }} {{ form.email }}
+      {{ form.email.errors }}
+    </div>
+    <div class="fieldWrapper" id="idjabber">
+      {{ form.jabber.label_tag }} {{ form.jabber }}
+      {{ form.jabber.errors }}
+    </div>
+    <div class="fieldWrapper" id="idskype">
+      {{ form.skype.label_tag }} {{ form.skype }}
+      {{ form.skype.errors }}
+    </div>
+    <div class="fieldWrapper" id="idother_cont">
+      {{ form.other_cont.label_tag }} {{ form.other_cont }}
+      {{ form.other_cont.errors }}
+    </div>
+    <div class="fieldWrappe" id="idbio">
+      {{ form.bio.label_tag }} {{ form.bio }}
+      {{ form.bio.errors }}
+    </div>
+  </div>
+  <div class="clr"></div>
+    <div id="error_message">Fill the form and press Submit button</div>
+    <p id="form_butts"><button id="savebutton" type="submit">Submit</button> <a href="{% url home %}">cancel</a></p>
 </form>
 {% endblock %}

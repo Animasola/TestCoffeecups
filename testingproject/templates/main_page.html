@@ -6,30 +6,30 @@
 
 {% for myself in myinfo %}
 <div class="my_info">
-	<div class="left_side">
-		<p>{{ myself.name }}</p>
-		<p>{{ myself.surname }}</p>
-		<p>{{ myself.birth_date }}</p>
-		<p>Photo:</p>
-		<p><img id="my_photo_prev" src="{{ MEDIA_URL }}{{ myself.my_photo }}"></p>
-	</div>
-	<div class="right_side">
-		<p>Contacts
-		<p>Email: {{ myself.email }}</p>
-		<p>Jabber: {{ myself.jabber }}</p>
-		<p>Skype: {{ myself.skype }}</p>
-		<p>Other contacts:
-		<p><div class="multiline">{{ myself.other_cont }}</div></p>
-		<p>Bio:
-		<p><div class="multiline">{{ myself.bio }}</div></p>
-	</div>
-<div class="clr"></div>
+  <div class="left_side">
+    <p>{{ myself.name }}</p>
+    <p>{{ myself.surname }}</p>
+    <p>{{ myself.birth_date }}</p>
+    <p>Photo:</p>
+    <p><img id="my_photo_prev" src="{{ MEDIA_URL }}{{ myself.my_photo }}"></p>
+  </div>
+  <div class="right_side">
+    <p>Contacts
+    <p>Email: {{ myself.email }}</p>
+    <p>Jabber: {{ myself.jabber }}</p>
+    <p>Skype: {{ myself.skype }}</p>
+    <p>Other contacts:
+    <p><div class="multiline">{{ myself.other_cont }}</div></p>
+    <p>Bio:
+    <p><div class="multiline">{{ myself.bio }}</div></p>
+  </div>
+  <div class="clr"></div>
 </div>
 <div class="login">
-	<p><a href="{% url editinfo %}">Login</a>
-	{% if user.is_authenticated %}
-		<p><p><a href="{% admin_url user %}">Edit (admin)</a>
-	{% endif %}
+  <p><a href="{% url editinfo %}">Login</a>
+  {% if user.is_authenticated %}
+    <p><p><a href="{% admin_url user %}">Edit (admin)</a>
+  {% endif %}
 </div>
 {% endfor %}
 {% endblock %}
