@@ -60,5 +60,6 @@ def edit_my_info(request):
                 form.save()
     else:
         form = MyInfoForm(instance=my_info)
+        myphoto = my_info.my_photo
     return direct_to_template(request, 'edit_my_info.html',
-                {'form': form})
+                {'form': form, 'myphoto': myphoto})
