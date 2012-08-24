@@ -66,7 +66,7 @@ def edit_my_info(request):
 
 
 def remove_log_object(request):
-    results = {'success': False, 'message': "Something went wrong!"}
+    results = {'success': False}
     if request.method == 'GET':
         try:
             request_id = request.GET['id'].encode('utf-8')
