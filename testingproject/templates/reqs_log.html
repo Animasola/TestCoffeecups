@@ -1,16 +1,19 @@
 {% extends "base.html" %}
-{% block head %}<title>First ten requests</title>{% endblock %}
+{% block head %}<title>First ten requests</title>
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/remove_request_instance_ajax.js"></script>
+{% endblock %}
 
 {% block body %}
 <h2>First 10 requests</h2>
 <div class="log_choise">
-	<a href="{% url reqslog %}?pr=2">Show post requests</a>
-	<a href="{% url reqslog %}?pr=1">Show file access requests</a>
+  <a href="{% url reqslog %}?pr=2">Show post requests</a>
+  <a href="{% url reqslog %}?pr=1">Show file access requests</a>
 </div>
 <ul class="left_side_ul">
-	{% for request in requests %}
-		<li><b>{{ request.req_type }}</b> request to <a href="{{ request.req_url }}">{{ request.req_url }}</a> from <b>{{ request.req_ip }}</b> at {{ request.timestamp }}</li>
-	{% endfor %}
+  {% for request in requests %}
+    <li class="log_instance"><b>{{ request.req_type }}</b> request to <a href="{{ request.req_url }}">{{ request.req_url }}</a> from <b>{{ request.req_ip }}</b> at {{ request.timestamp }}<input type="submit" value="Remove" onclick="removeRequestInstance(this, {{ request.pk }}); return false;"></input></li>
+  {% endfor %}
 </ul>
 
 {% endblock %}

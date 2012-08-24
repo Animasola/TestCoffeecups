@@ -60,5 +60,20 @@ def edit_my_info(request):
                 form.save()
     else:
         form = MyInfoForm(instance=my_info)
+        myphoto = my_info.my_photo
     return direct_to_template(request, 'edit_my_info.html',
-                {'form': form})
+                {'form': form, 'myphoto': myphoto})
+
+
+def remove_log_object(request):
+    results = {'success': False}
+    if request.method == 'GET':
+        try:
+            request_id = request.GET['id'].encode('utf-8')
+        except:
+            request_id = None
+    log_instance = ReqsHistory.objects.get(pk=int(request_id)).delete()
+    results['success'] = True
+    results['message'] = "Removed"
+    json = simplejson.dumps(results, ensure_ascii=False)
+    return HttpResponse(json, mimetype='application/json')

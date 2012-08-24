@@ -43,11 +43,6 @@ class MainPageTest(TestCase):
         self.petya = MyInfo.objects.get(name='Petro')
         self.client = Client()
 
-    def tearDown(self):
-        self.model_obj = None
-        self.petya = None
-        self.client = None
-
     def test_obj_as_string(self):
         self.assertEqual(str(self.petya), 'Petro Petrenko')
 
@@ -93,9 +88,6 @@ class RequestsLogTemplateTest(TestCase):
     def setUp(self):
         self.client = Client()
 
-    def tearDown(self):
-        self.client = None
-
     def test_template(self):
         response = self.client.get(reverse('reqslog'))
         self.assertEqual(response.status_code, 200)
@@ -129,9 +121,6 @@ class RequestLogModelTest(TestCase):
             req_ip="10.10.157.17",
             )
 
-    def tearDown(self):
-        self.new_url = None
-
     def test_object_as_string(self):
         self.new_url.save()
         self.assertEqual(str(self.new_url), 'google')
@@ -154,9 +143,6 @@ class TemplateContextProcTest(TestCase):
 
     def setUp(self):
         self.client = Client()
-
-    def tearDown(self):
-        self.client = None
 
     def test_context(self):
         user = self.client.login(username='animasola', password='hal498p')
