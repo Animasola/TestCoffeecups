@@ -14,8 +14,8 @@ class DatePickerWidget(forms.DateInput):
         js = (
              "/static/js/jquery.js",
              "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.js",
-             "http://ajax.googleapis.com/ajax/"
-             "libs/jqueryui/1.8.1/i18n/jquery.ui.datepicker-en-GB.js")
+             "http://ajax.googleapis.com/ajax/",
+             "libs/jqueryui/1.8.1/i18n/jquery.ui.datepicker-en-GB.js",)
 
     def __init__(self, params='', attrs=None):
         self.params = params
