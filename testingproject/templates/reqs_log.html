@@ -1,5 +1,8 @@
 {% extends "base.html" %}
-{% block head %}<title>First ten requests</title>{% endblock %}
+{% block head %}<title>First ten requests</title>
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/remove_request_instance_ajax.js"></script>
+{% endblock %}
 
 {% block body %}
 <h2>First 10 requests</h2>
@@ -9,7 +12,7 @@
 </div>
 <ul class="left_side_ul">
   {% for request in requests %}
-    <li><b>{{ request.req_type }}</b> request to <a href="{{ request.req_url }}">{{ request.req_url }}</a> from <b>{{ request.req_ip }}</b> at {{ request.timestamp }}</li>
+    <li class="row"><b>{{ request.req_type }}</b> request to <a href="{{ request.req_url }}">{{ request.req_url }}</a> from <b>{{ request.req_ip }}</b> at {{ request.timestamp }}<input type="submit" value="Remove" onclick="removeRequestInstance(this, {{ request.pk }}); return false;"></input></li>
   {% endfor %}
 </ul>
 
