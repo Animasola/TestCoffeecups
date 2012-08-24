@@ -16,7 +16,7 @@ class MyInfoForm(ModelForm):
 
     class Media:
         js = ("/static/js/jquery.form_3.09.js",
-                "/static/js/form_submit_ajax.js",
+                "/static/js/form_submit.js",
                 "/static/js/image_refresh.js",)
 
     class Meta:
