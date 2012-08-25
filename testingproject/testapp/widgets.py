@@ -11,11 +11,10 @@ class DatePickerWidget(forms.DateInput):
              'all': ("http://jquery-ui.googlecode.com/"
                      "svn/tags/latest/themes/base/jquery-ui.css",)
              }
-        js = (
-             "/static/js/jquery.js",
-             "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.js",
-             "http://ajax.googleapis.com/ajax/",
-             "libs/jqueryui/1.8.1/i18n/jquery.ui.datepicker-en-GB.js",)
+        js = ("/static/js/jquery.js",
+                "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.js",
+                "http://ajax.googleapis.com/ajax/",
+                "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/i18n/jquery.ui.datepicker-en-GB.js",)
 
     def __init__(self, params='', attrs=None):
         self.params = params

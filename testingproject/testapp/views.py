@@ -23,7 +23,7 @@ def requests_log(request):
     if prior:
         first_ten_requests = \
                 ReqsHistory.objects.filter(req_priority=\
-                        int(prior)).order_by('timestamp')
+                        int(prior)).order_by('timestamp')[: 10]
     else:
         first_ten_requests =\
                 ReqsHistory.objects.filter().order_by('timestamp')[: 10]
