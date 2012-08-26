@@ -66,14 +66,13 @@ def edit_my_info(request):
 
 
 def remove_log_object(request):
-    results = {'success': False}
-    if request.method == 'GET':
-        try:
-            request_id = request.GET['id'].encode('utf-8')
-        except:
-            request_id = None
-    log_instance = ReqsHistory.objects.get(pk=int(request_id)).delete()
-    results['success'] = True
-    results['message'] = "Removed"
-    json = simplejson.dumps(results, ensure_ascii=False)
+    results = {}
+    if request.method == "POST" and request.is_ajax():
+        if 'request_id' in request.POST and request.POST['request_id']:
+            try:
+                ReqsHistory.objects.get(pk=request.POST['request_id'].encode('utf-8')).delete()
+                results['success'] = True
+            except:
+                results['success'] = False
+            json = simplejson.dumps(results, ensure_ascii=False)
     return HttpResponse(json, mimetype='application/json')
